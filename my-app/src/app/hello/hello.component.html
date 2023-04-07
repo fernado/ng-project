@@ -1,0 +1,175 @@
+<!-- 插值语法，可以简单理解为一段js执行区域 -->
+<p>{{name}}</p>
+<p>{{1 + 1}}</p>
+<p>{{name ? 1 + 1 : name}}</p>
+<p>{{false ? 1 + 1 : name}}</p>
+<p>{{date}}</p>
+
+<!-- 属性绑定使用中括号 [属性名] 使用''认为是字符串，如果不使用''封装属性名，在此属性名认为是一个变量 -->
+<div [id]="'box'">属性绑定</div>
+<div [id]="box">属性绑定变量</div>
+
+
+<!-- class 渲染方式 -->
+<p [class]="'item'">class绑定</p>
+<p [class]="item">class绑定变量</p>
+
+<h3 [class.h3-dom]="true">true {{1 + 2}}</h3>
+<h3 [class.h3-dom]="'true'">'true' {{1 + 2}}</h3>
+<h3 [class.h3-dom]="h3Dom">h3Dom 变量 {{1 + 2}}</h3>
+
+<h3 [class]="'h3-dom font-w String'">多类名绑定 {{1 + 2}}</h3>
+<h3 [class]="'h3Class'">多类名绑定 {{1 + 2}}</h3>
+
+<h3 [class]="{'h3-dom':false,'title-dom':true}">类名条件渲染 {{1 + 2}}</h3>
+<h3 [class]="['h3-dom','title-dom']">class数组渲染 {{1 + 2}}</h3>
+
+<h3 [ngClass]="{'active': isActive}">ngClass绑定</h3>
+
+<!-- 样式渲染 -->
+<h3 [style.width]="'300px'">单一样式绑定</h3>
+<!-- 样式写在类名后面，通常比较少使用 -->
+<h3 [style.width.px]="'300'">单一样式绑定</h3>
+<h3 [style.color]="'red'">单一样式绑定</h3>
+
+<h3 [style]="'background:red;color:#afb'">多样式绑定</h3>
+<h3 [style]="{'background':'red','color':'#fcf'}">多样式绑定</h3>
+
+<h3 [ngStyle]="{'color':'red'}">ngStyle样式绑定</h3>
+<h3 [ngStyle]="{'font-size': isMax ? '24px': '12px'}">ngStyle样式绑定</h3>
+
+<!-- 条件判断语法 -->
+<div *ngIf="isMax">isMax==true</div>
+<div *ngIf="!isMax">isMax==false</div>
+<!-- 解析完 -->
+<ng-template [ngIf]="isMax">
+    <div>isMax==true</div>
+</ng-template>
+<hr>
+<ng-container *ngIf="isMax; else elseTemplate">
+    <div>isMax==true</div>
+</ng-container>
+<ng-template #elseTemplate>
+    <div>isMax==false</div>
+</ng-template>
+
+<hr>
+<!-- 循环语句 -->
+<!-- for循环 -->
+<!-- 语法解析器接收of,会将它的首字母大鞋(Of)，然后加上属性的指令名(ngFor)前缀，最终胜出的名字是ngFor的输入属性(colors) -->
+<div *ngFor="let color of colors let i=index let isOdd=odd">
+    {{isOdd}}
+    {{i}}
+    {{color}}
+</div>
+<hr>
+<!-- 解析完 -->
+<ng-template ngFor let-color [ngForOf]="colors" let-i="index" let-isOdd="odd">
+    <div>{{isOdd}} {{i}} {{color}}</div>
+</ng-template>
+
+<!-- Switch判断 -->
+<div [ngSwitch]="type">
+    <p *ngSwitchCase="1">
+        type:1
+    </p>
+    <p *ngSwitchCase="2">
+        type:2
+    </p>
+    <p *ngSwitchDefault>
+        type!=1 && type!=2
+    </p>
+</div>
+
+<hr>
+<!-- 事件绑定，(事件类型)="事件执行函数", $event 当前对象-->
+<input type="text" (input)="inputChange($event)">
+<button (click)="clickAction($event)">点击</button>
+
+<!-- 模板引用变量 -->
+<input #userName type="text" (input)="inputChange($event)">
+<button (click)="getUserName(userName.value)">获取UserName</button>
+
+<!-- Angular 依据你所申明的变量位置给模板变量赋值：
+    在组件上声明变量，该变量就会引用该组件实例
+    在标准的HTML标记上申明变量，改变了就会引用该元素
+    在<ng-template>元素申明变量，该变量就会引用一个`TemplateRef`实例来代表此模板</ng-template> -->
+<div #box>
+    <input type="text">
+    <button>box div</button>
+</div>
+
+<hr>
+<!-- 双向绑定是应用中的组件共享数据的一种方式，使用双向绑定来侦听时间并在父组件和子组件之间同步更新值 -->
+<!-- ngModel指令只对`表单元素有效`，使用之前需要导入`FormsModule`模块 -->
+<div>
+    <input [(ngModel)]="title" type="text">
+    <p>标题:{{title}}</p>
+</div>
+
+<hr>
+<!-- 使用表单控件有三个步骤
+    引用中注册响应式模块，该模块声明了一些你要用在响应式表单中的指令
+    生成一个新的`FormControl`实例，同时存入组件中
+    在模板中注册该`FormControl`实例 -->
+
+<!-- 响应式表单需要 ReactiveFormsModule -->
+
+<!-- 动态表单控件 -->
+<label>Age: </label>
+<input type="text" [formControl]="age">
+<br>
+<p>Age: {{age.value}}</p>
+<button (click)="ageInc()">年龄增长</button>
+
+<hr>
+<!-- 表单控件分组
+表单中通常会包含几个互相关联的控件，响应式表单提供了两种把多个相关控件分组到同一个输入表单中的方法
+要将表单组添加到此组件中，请执行以下步骤
+    创建一个`FormGroup`实例
+    该`FormGroup`模型关联到视图
+    保存表单数据 -->
+
+<!-- 动态表单控件组 -->
+<form [formGroup]="loginForm">
+    <label>账号：<input type="text" formControlName="userName"></label>
+    <label>密码：<input type="text" formControlName="password"></label>
+    <button (click)="submitForm()">提交</button>
+</form>
+
+<hr>
+<form action="">
+    <!-- 给表单绑定一个模板引用的变量，需要等于[(ngModel)]。给它一个限制required -->
+    账号：<input required #nameInp="ngModel" type="text" [(ngModel)]="formData.name" name="userName">
+    <br>
+    <!-- 验证是否通过 -->
+    <!-- <span>验证结果{{nameInp.valid}}</span> -->
+    <span *ngIf="!nameInp.valid">请输入账号</span>
+    <hr>
+    密码：<input required #passInp="ngModel" type="text" [(ngModel)]="formData.password" name="password">
+    <br>
+    <!-- 验证是否通过 -->
+    <span>{{passInp.valid}}</span>
+    <hr>
+    <button (click)="submitFormFromButton(nameInp)">提交</button>
+</form>
+
+<!-- 自定义表单验证 -->
+<hr>
+<form [formGroup]="validateDataForm">
+    <label>账号：<input required type="text" formControlName="userName"></label>
+    <p *ngIf="validateDataForm.get('userName')?.errors?.['required']">请输入账号</p>
+    <p *ngIf="validateDataForm.get('userName')?.errors?.['maxLength'] && validateDataForm.get('userName')?.errors?.['minLength']">请输入账号长度6-18</p>
+    <br>
+    <label>密码：<input type="text" formControlName="password"></label>
+    <p *ngIf="validateDataForm.get('password')?.errors?.['msg']">
+        {{validateDataForm.get('password')?.errors?.['msg']}}
+    </p> 
+    <br>
+    <label>手机号：<input type="text" formControlName="phone"></label>
+    <p *ngIf="validateDataForm.get('phone')?.errors?.['msg']">
+        {{validateDataForm.get('phone')?.errors?.['msg']}}
+    </p> 
+    <button (click)="submitValidateDataForm()">提交</button>
+
+</form>

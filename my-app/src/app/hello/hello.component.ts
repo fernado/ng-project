@@ -15,6 +15,7 @@ export class HelloComponent implements OnInit {
 
   name: string = 'Fernando'
   date: Date = new Date()
+  dateStr: Date = new Date()
   box: string = 'div-dom'
   item: string = 'item-p'
 
@@ -98,7 +99,6 @@ export class HelloComponent implements OnInit {
       ]
     ]
   });
-
 
   passwordVal(password: FormControl): object {
     // 断言，如果value不存在，则给''

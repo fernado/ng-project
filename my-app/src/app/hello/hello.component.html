@@ -171,5 +171,11 @@
         {{validateDataForm.get('phone')?.errors?.['msg']}}
     </p> 
     <button (click)="submitValidateDataForm()">提交</button>
-
 </form>
+
+<p>{{dateStr}}</p>
+<!-- 管道 -->
+<p>{{dateStr | date: 'yyy-MM-dd HH:mm:ss'}}</p>
+<p>{{name | uppercase | lowercase}}</p>
+<!-- 自定义管道 -->
+<p>{{name | test}}</p>

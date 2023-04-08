@@ -1,0 +1,9 @@
+<p>home works!</p>
+<button (click)="titleChange()">Change</button>
+<p *ngFor="let item of list">{{item}}</p>
+<input #txtName="ngModel" type="text" [(ngModel)]="fData.txtName" name="txtName">
+
+<app-title #titleDom [title]="title" (addList)="addListFunc($event)" (updateTxtName)="updateTxtFunc($event)"></app-title>
+<button (click)="addFunc()">invoke child component</button>
+
+

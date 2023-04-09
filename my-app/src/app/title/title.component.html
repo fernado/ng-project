@@ -1,4 +1,5 @@
 <div class="title-box">
+    <p *ngFor="let item of list">{{item}}</p>
     <div class="left">{{title}}</div>
     <button (click)="addBtnAction()">Need to learn Vue</button>
     <button (click)="updateBtnAction()">Update input</button>

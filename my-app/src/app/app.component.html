@@ -1,3 +1,31 @@
 <span>{{ title }} app is running!</span>
 <!-- <app-hello></app-hello> -->
-<app-home></app-home>
+<!-- <app-home></app-home> -->
+
+<!-- 路由组件渲染的位置 -->
+<div>
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <a href="#" class="navbar-brand">首页</a>
+      <div class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <!-- 路由导航 -->
+            <a [routerLink]="['/home']" routerLinkActive="router-link-active">首页</a>
+        </li>
+        <li class="nav-item">
+            <!-- Query 传参 -->
+            <!-- Params 传参 -->
+            <a [routerLink]="['/hello','2','FernandoX']" [queryParams]="{id:1,name:'Fernando'}" routerLinkActive="router-link-active">Hello</a>
+        </li>
+        <li class="nav-item">
+            <a [routerLink]="['/tutorials']" class="nav-link" routerLinkActive="router-link-active">Tutorials</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/add']" class="nav-link" routerLinkActive="router-link-active">Add</a>
+        </li>
+      </div>
+    </nav>
+  
+    <div class="container mt-3">
+      <router-outlet></router-outlet>
+    </div>
+  </div>

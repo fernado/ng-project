@@ -8,7 +8,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TestPipe } from './pipes/test.pipe';
 import { HomeComponent } from './home/home.component';
 import { TitleComponent } from './title/title.component';
+import { ListService } from './servers/list.service';
+import { ListComponent } from './list/list.component';
+import { ListDataComponent } from './list/list-data/list-data.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { TutorialListComponent } from './components/tutorial-list/tutorial-list.component';
+import { TutorialDetailsComponent } from './components/tutorial-details/tutorial-details.component';
+import { AddTutorialComponent } from './components/add-tutorial/add-tutorial.component';
 
 @NgModule({
   declarations: [
@@ -16,16 +24,25 @@ import { TitleComponent } from './title/title.component';
     HelloComponent,
     TestPipe,
     HomeComponent,
-    TitleComponent
+    TitleComponent,
+    ListComponent,
+    ListDataComponent,
+    TutorialListComponent,
+    TutorialDetailsComponent,
+    AddTutorialComponent
   ],
   // 什么组件需要用到的类
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    ListService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

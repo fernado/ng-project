@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ListService } from '../servers/list.service';
 
 @Component({
   selector: 'app-title',
@@ -26,11 +27,13 @@ export class TitleComponent implements OnInit {
 
   updateTimes = 1;
 
+  list: Array<string> | undefined
+
   updateBtnAction(): void {    
     this.updateTxtName.emit('Updated' + this.updateTimes++)
   }
 
-  constructor() {
+  constructor(private listService: ListService) {
     console.log('constructor')
   }
 
@@ -41,7 +44,9 @@ export class TitleComponent implements OnInit {
 
   ngOnInit(): void {
     // throw new Error('Method not implemented.');
+    this.list = this.listService.getList()
     console.log('ngOnInit')
+
   }
 
   // ngDoCheck() {

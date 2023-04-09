@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Params } from '@angular/router';
+
 
 @Component({
   selector: 'app-hello',
@@ -9,7 +11,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 // 可以在这个`class`-`HelloComponent`写业务逻辑
 export class HelloComponent implements OnInit {
 
-  constructor(private fB: FormBuilder) {
+  constructor(private fB: FormBuilder, private routeInfo: ActivatedRoute) {
   }
 
 
@@ -71,7 +73,11 @@ export class HelloComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      
+    // console.log(this.routeInfo)
+    // console.log(this.routeInfo.snapshot.queryParams)
+    this.routeInfo.params.subscribe((params: Params) => {
+      console.log(params)
+    })
   }
 
   validateDataForm: FormGroup = this.fB.group({    

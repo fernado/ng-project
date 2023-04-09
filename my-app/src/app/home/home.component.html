@@ -1,4 +1,15 @@
-<p>home works!</p>
+<br>
+<!-- <p>home works!</p> -->
+
+<a [routerLink]="['/home/list']" routerLinkActive="home-active">---列表---</a>
+
+<!-- home路由下子路由渲染的位置 -->
+<router-outlet>
+
+</router-outlet>
+
+<h1></h1>
+<br>
 <button (click)="titleChange()">Change</button>
 <p *ngFor="let item of list">{{item}}</p>
 <input #txtName="ngModel" type="text" [(ngModel)]="fData.txtName" name="txtName">
@@ -6,4 +17,4 @@
 <app-title #titleDom [title]="title" (addList)="addListFunc($event)" (updateTxtName)="updateTxtFunc($event)"></app-title>
 <button (click)="addFunc()">invoke child component</button>
 
-
+<button (click)="addListAction()">Still want to learn NodeJs</button>
